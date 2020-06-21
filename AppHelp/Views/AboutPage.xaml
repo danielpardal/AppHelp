@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="AppHelp.Views.AboutPage"
+             xmlns:vm="clr-namespace:AppHelp.ViewModels"
+             Title="CONFIGURAÇÕES">
+
+    <ScrollView>
+        <StackLayout Padding="10,20,10,10">
+            <StackLayout Padding="0,0,0,20">
+                <Label Text="Telefone para Envio de Pedido de Ajuda" FontSize="Medium" FontAttributes="Bold"></Label>
+                <Entry TextColor="Red" FontAttributes="Bold" Text="16996005035" FontSize="Medium" x:Name="txtNumber" Placeholder="DDD + Telefone" Keyboard="Telephone"></Entry>
+            </StackLayout>
+            <StackLayout Padding="0,0,0,20">
+                <Label FontSize="Medium" FontAttributes="Bold" Text="Mensagem do Pedido de Ajuda"></Label>
+                <Entry TextColor="Red" FontAttributes="Bold" Text="SOCORRO!!!" FontSize="Medium" x:Name="txtMessage" Placeholder="Mensagem" Keyboard="Text"></Entry>
+            </StackLayout>
+            <Button x:Name="btnSms" Text="Salvar" TextColor="White" FontSize="Medium" FontAttributes="Bold" BackgroundColor="Red" CornerRadius="25" Clicked="btnSave_Clicked"/>
+
+        </StackLayout>
+    </ScrollView>
+   
+</ContentPage>
