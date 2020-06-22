@@ -11,12 +11,16 @@
     <ScrollView>
         <StackLayout Padding="10,20,10,10">
             <StackLayout Padding="0,0,0,20">
-                <Label Text="Telefone para Envio de Pedido de Ajuda" FontSize="Medium" FontAttributes="Bold"></Label>
+                <Label Text="Telefone para envio do pedido de ajuda" FontSize="Medium" FontAttributes="Bold"></Label>
                 <Entry TextColor="Red" FontAttributes="Bold" Text="16996005035" FontSize="Medium" x:Name="txtNumber" Placeholder="DDD + Telefone" Keyboard="Telephone"></Entry>
             </StackLayout>
             <StackLayout Padding="0,0,0,20">
-                <Label FontSize="Medium" FontAttributes="Bold" Text="Mensagem do Pedido de Ajuda"></Label>
+                <Label FontSize="Medium" FontAttributes="Bold" Text="Mensagem do pedido de ajuda"></Label>
                 <Entry TextColor="Red" FontAttributes="Bold" Text="SOCORRO!!!" FontSize="Medium" x:Name="txtMessage" Placeholder="Mensagem" Keyboard="Text"></Entry>
+            </StackLayout>
+            <StackLayout Padding="0,0,0,20">
+                <Label FontSize="Medium" FontAttributes="Bold" Text="Email para envio do pedido de ajuda"></Label>
+                <Entry TextColor="Red" FontAttributes="Bold" Text="daniel.sergent@gmail.com" FontSize="Medium" x:Name="txtEmail" Placeholder="Email" Keyboard="Email"></Entry>
             </StackLayout>
             <Button x:Name="btnSms" Text="Salvar" TextColor="White" FontSize="Medium" FontAttributes="Bold" BackgroundColor="Red" CornerRadius="25" Clicked="btnSave_Clicked"/>
 

@@ -7,17 +7,21 @@
              x:Class="AppHelp.Views.ItemsPage"
              Title="HELP ME">
 
-    <StackLayout Padding="0,100,0,0">
+    <StackLayout Padding="0,100,0,10">
         <Label x:Name="label"
                Text="Clique no botão para pedir ajuda"
                FontSize="Large"
                VerticalOptions="Start"
                HorizontalOptions="Center" />
 
-        <Button Text="HELP ME!!!" FontSize="Large" FontAttributes="Bold" FontFamily=""
+        <Button Text="HELP SMS!" FontSize="Large" FontAttributes="Bold"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="Center" CornerRadius="100" BorderColor="LightGray" BorderWidth="1"
                 Clicked="btnSendSms_Clicked" WidthRequest="200" HeightRequest="200" BackgroundColor="Red" TextColor="LightGray"/>
+
+        <Button Text="HELP LIGAÇÃO!"  FontAttributes="Bold" CornerRadius="25" Clicked="Call" BackgroundColor="Red" TextColor="White"/>
+        <Button Text="HELP WHATSAPP!" FontAttributes="Bold" CornerRadius="25" Clicked="Wathsapp" BackgroundColor="Red" TextColor="White"/>
+        <Button Text="HELP EMAIL!" FontAttributes="Bold" CornerRadius="25" Clicked="Wathsapp" BackgroundColor="Red" TextColor="White"/>
     </StackLayout>
     
 </ContentPage>

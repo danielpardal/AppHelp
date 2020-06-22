@@ -89,6 +89,14 @@ namespace AppHelp.Views
                     Application.Current.Properties.Add("TxtMessage", txtMessage.Text);
             }
 
+            if (!string.IsNullOrEmpty(txtEmail.Text))
+            {
+                if (Application.Current.Properties.ContainsKey("txtEmail"))
+                    Application.Current.Properties["TxtEmail"] = txtEmail.Text;
+                else
+                    Application.Current.Properties.Add("TxtEmail", txtEmail.Text);
+            }
+
             await DisplayAlert("Sucesso", "Configuração salva.", "OK");
 
         }
