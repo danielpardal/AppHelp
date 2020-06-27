@@ -17,11 +17,11 @@
         <Button Text="HELP SMS!" FontSize="Large" FontAttributes="Bold"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="Center" CornerRadius="100" BorderColor="LightGray" BorderWidth="1"
-                Clicked="btnSendSms_Clicked" WidthRequest="200" HeightRequest="200" BackgroundColor="Red" TextColor="LightGray"/>
+                Clicked="SendSms_Clicked" WidthRequest="200" HeightRequest="200" BackgroundColor="Red" TextColor="LightGray"/>
 
-        <Button Text="HELP LIGAÇÃO!"  FontAttributes="Bold" CornerRadius="25" Clicked="Call" BackgroundColor="Red" TextColor="White"/>
-        <Button Text="HELP WHATSAPP!" FontAttributes="Bold" CornerRadius="25" Clicked="Wathsapp" BackgroundColor="Red" TextColor="White"/>
-        <Button Text="HELP EMAIL!" FontAttributes="Bold" CornerRadius="25" Clicked="Wathsapp" BackgroundColor="Red" TextColor="White"/>
+        <Button Text="HELP LIGAÇÃO!"  FontAttributes="Bold" Clicked="Call" BackgroundColor="Red" TextColor="White"/>
+        <Button Text="HELP WHATSAPP!" FontAttributes="Bold" Clicked="Wathsapp" BackgroundColor="Red" TextColor="White"/>
+        <Button Text="HELP EMAIL!" FontAttributes="Bold" Clicked="SendEmail" BackgroundColor="Red" TextColor="White"/>
     </StackLayout>
     
 </ContentPage>

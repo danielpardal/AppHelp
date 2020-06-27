@@ -14,6 +14,7 @@ using AppHelp.Views;
 using Xamarin.Essentials;
 using System.Threading.Tasks;
 using Plugin.Messaging;
+using Plugin.Permissions;
 
 namespace AppHelp.Views
 {
@@ -31,13 +32,44 @@ namespace AppHelp.Views
             //BindingContext = viewModel = new ItemsViewModel();
         }
 
-        async void btnSendSms_Clicked(object sender, System.EventArgs e)
+        async void SendSms_Clicked(object sender, System.EventArgs e)
         {
+            try
+            {
+                var status = await CrossPermissions.Current.CheckPermissionStatusAsync<SmsPermission>();
+                if (status != Plugin.Permissions.Abstractions.PermissionStatus.Granted)
+                {
+                    status = await CrossPermissions.Current.RequestPermissionAsync<SmsPermission>();
+                }
+
+                if (status == Plugin.Permissions.Abstractions.PermissionStatus.Denied)
+                {
+                    await DisplayAlert("Erro", "A mensagem não poderá ser enviada sem permissão.", "OK");
+                    return;
+                } 
+                else if(status == Plugin.Permissions.Abstractions.PermissionStatus.Unknown)
+                {
+                    await DisplayAlert("Erro", "A mensagem não poderá ser enviada sem permissão.", "OK");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Erro", "Houve um problema com a solicitação. Tente novamente.", "OK");
+                //Something went wrong
+            }
+
             if (Application.Current.Properties.ContainsKey("TxtNumberTel"))
             {
                 var txtNumber = Application.Current.Properties["TxtNumberTel"].ToString();
                 var txtMessage = "";
-                
+
+                if (String.IsNullOrWhiteSpace(txtNumber))
+                {
+                    await DisplayAlert("Erro", "Não foi possível realizar a ligação. Número de Telefone inválido.", "OK");
+                    return;
+                }
+
                 if (Application.Current.Properties.ContainsKey("TxtMessage"))
                     txtMessage = Application.Current.Properties["TxtMessage"].ToString();
                 
@@ -97,33 +129,71 @@ namespace AppHelp.Views
             }
         }
 
-        public void Call(object sender, EventArgs e)
+        async void Call(object sender, EventArgs e)
         {
-            var phoneDialer = CrossMessaging.Current.PhoneDialer;
-            var txtNumber = "";
-            if (Application.Current.Properties.ContainsKey("TxtNumberTel"))
+            try
             {
-                txtNumber = Application.Current.Properties["TxtNumberTel"].ToString();
+                var status = await CrossPermissions.Current.CheckPermissionStatusAsync<PhonePermission>();
+                if (status != Plugin.Permissions.Abstractions.PermissionStatus.Granted)
+                {
+                    status = await CrossPermissions.Current.RequestPermissionAsync<PhonePermission>();
+                }
+
+                if (status == Plugin.Permissions.Abstractions.PermissionStatus.Denied)
+                {
+                    await DisplayAlert("Erro", "A ligação não poderá ser realizada sem permissão.", "OK");
+                    return;
+                }
+                else if (status == Plugin.Permissions.Abstractions.PermissionStatus.Unknown)
+                {
+                    await DisplayAlert("Erro", "A ligação não poderá ser realizada sem permissão.", "OK");
+                    return;
+                }
             }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Erro", "Houve um problema com a solicitação. Tente novamente.", "OK");
+                //Something went wrong
+            }
+            var phoneDialer = CrossMessaging.Current.PhoneDialer;
+            var txtNumber = Application.Current.Properties["TxtNumberTel"].ToString();
+            
+            if (String.IsNullOrWhiteSpace(txtNumber))
+            {
+                await DisplayAlert("Erro", "Não foi possível realizar a ligação. Número de Telefone inválido.", "OK");
+                return;
+            }
+
 
             if (phoneDialer.CanMakePhoneCall && !String.IsNullOrWhiteSpace(txtNumber))
             {
-                phoneDialer.MakePhoneCall(txtNumber);
+                try
+                {
+                   phoneDialer.MakePhoneCall(txtNumber);
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Failed", "Não foi possível realizar a ligação.", "OK");
+                }
+
             }
             else
             {
-                DisplayAlert("Erro", "Não foi possível realizar a ligação. Verificar telefone cadastrado ou permissão de chamada.", "OK");
+                await DisplayAlert("Erro", "Não foi possível realizar a ligação. Verificar permissão de chamada do aplicativo.", "OK");
             }
         }
 
         async void Wathsapp(object sender, EventArgs e)
         {
-            var txtNumber = "";
+            var txtNumber = Application.Current.Properties["TxtNumberTel"].ToString();
             var txtMessage = "";
 
-            if (Application.Current.Properties.ContainsKey("TxtNumberTel"))
-                txtNumber = Application.Current.Properties["TxtNumberTel"].ToString();
-            
+            if (String.IsNullOrWhiteSpace(txtNumber))
+            {
+                await DisplayAlert("Erro", "Não foi possível enviar a mensagem. Número de Telefone inválido.", "OK");
+                return;
+            }
+        
             if (Application.Current.Properties.ContainsKey("TxtMessage"))
                 txtMessage = Application.Current.Properties["TxtMessage"].ToString();
 
@@ -159,28 +229,26 @@ namespace AppHelp.Views
 
             txtMessage = txtMessage + locationTxt;
             var txtNumberFmt = "+55" + txtNumber;
-
-            if (!String.IsNullOrWhiteSpace(txtNumber))
+            
+            try
             {
-                try
-                {
-                    Device.OpenUri(new Uri(String.Format("https://wa.me/{0}?text={1}", txtNumberFmt, txtMessage)));
-                }                
-                catch (Exception ex)
-                {
-                    await DisplayAlert("Failed", "Não foi possível enviar a mensagem.", "OK");
-                }
-            }    
+                Device.OpenUri(new Uri(String.Format("https://wa.me/{0}?text={1}", txtNumberFmt, txtMessage)));
+            }                
+            catch (Exception ex)
+            {
+                await DisplayAlert("Failed", "Não foi possível enviar a mensagem.", "OK");
+            }
         }
 
-        public async Task SendEmail()
+        async void SendEmail(object sender, EventArgs e)
         {
-            var txtNumber = "";
             var txtMessage = "";
-            
 
-            if (Application.Current.Properties.ContainsKey("TxtNumberTel"))
-                txtNumber = Application.Current.Properties["TxtNumberTel"].ToString();
+            if (!Application.Current.Properties.ContainsKey("TxtEmail"))
+            {
+                await DisplayAlert("Failed", "Não há endereço de email cadastrado.", "OK");
+                return;
+            }
 
             if (Application.Current.Properties.ContainsKey("TxtMessage"))
                 txtMessage = Application.Current.Properties["TxtMessage"].ToString();
@@ -241,6 +309,8 @@ namespace AppHelp.Views
                 await DisplayAlert("Failed", "Não foi possível enviar a mensagem por email.", "OK");
                 // Some other exception occurred
             }
+            await DisplayAlert("Sucess", "Mensagem de ajuda enviada para o email cadastrado.", "OK");
+
         }
 
         protected override void OnAppearing()

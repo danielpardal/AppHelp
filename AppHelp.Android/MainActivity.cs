@@ -15,8 +15,6 @@ namespace AppHelp.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
@@ -25,6 +23,7 @@ namespace AppHelp.Droid
             CrossMessaging.Current.Settings().Phone.AutoDial = true;
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }
