@@ -16,13 +16,13 @@ namespace AppHelp.Views
         public String locationTxt = "";
         public AboutPage()
         {
-            LocationCache();
+            //LocationCache();
             InitializeComponent();
             if (Application.Current.Properties.ContainsKey("TxtNumberTel"))
-                this.txtNumber.Text = Application.Current.Properties["TxtNumberTel"].ToString();
+                this.txtNumber1.Text = Application.Current.Properties["TxtNumberTel"].ToString();
 
             if (Application.Current.Properties.ContainsKey("TxtMessage"))
-                this.txtMessage.Text = Application.Current.Properties["TxtMessage"].ToString();
+                this.txtMessage1.Text = Application.Current.Properties["TxtMessage"].ToString();
         }
 
         protected override void OnAppearing()
@@ -71,51 +71,40 @@ namespace AppHelp.Views
                 //await DisplayAlert("Failed", "Não tem permissão para localização", "OK");
             }
         }
-        async void btnSave_Clicked(object sender, System.EventArgs e)
+        async void Save_Clicked(object sender, System.EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtNumber.Text))
+            if (!string.IsNullOrEmpty(this.txtNumber1.Text))
             {
                 if (Application.Current.Properties.ContainsKey("TxtNumberTel"))
-                    Application.Current.Properties["TxtNumberTel"] = txtNumber.Text;
+                    Application.Current.Properties["TxtNumberTel"] = this.txtNumber1.Text;
                 else
-                    Application.Current.Properties.Add("TxtNumberTel", txtNumber.Text);
+                    Application.Current.Properties.Add("TxtNumberTel", this.txtNumber1.Text);
+            }
+            else
+            {
+                await DisplayAlert("Failed", "Número de Telefone inválido. Informação obrigatória. Não será possível solicitar ajuda.", "OK");
+                return;
             }
 
-            if (!string.IsNullOrEmpty(txtMessage.Text))
+            if (!string.IsNullOrEmpty(txtMessage1.Text))
             {
                 if (Application.Current.Properties.ContainsKey("TxtMessage"))
-                    Application.Current.Properties["TxtMessage"] = txtMessage.Text;
+                    Application.Current.Properties["TxtMessage"] = this.txtMessage1.Text;
                 else
-                    Application.Current.Properties.Add("TxtMessage", txtMessage.Text);
+                    Application.Current.Properties.Add("TxtMessage", this.txtMessage1.Text);
             }
 
-            if (!string.IsNullOrEmpty(txtEmail.Text))
+            if (!string.IsNullOrEmpty(this.txtEmail1.Text))
             {
-                if (Application.Current.Properties.ContainsKey("txtEmail"))
-                    Application.Current.Properties["TxtEmail"] = txtEmail.Text;
+                if (Application.Current.Properties.ContainsKey("TxtEmail"))
+                    Application.Current.Properties["TxtEmail"] = this.txtEmail1.Text;
                 else
-                    Application.Current.Properties.Add("TxtEmail", txtEmail.Text);
+                    Application.Current.Properties.Add("TxtEmail", this.txtEmail1.Text);
             }
 
             await DisplayAlert("Sucesso", "Configuração salva.", "OK");
 
         }
 
-        public async Task SendSms(string messageText, string recipient)
-        {
-            /*try
-            {
-                var message = new SmsMessage(messageText, recipient);
-                await Sms.ComposeAsync(message);
-            }
-            catch (FeatureNotSupportedException ex)
-            {
-                await DisplayAlert("Failed", "Sms is not supported on this device.", "OK");
-            }
-            catch (Exception ex)
-            {
-                await DisplayAlert("Failed", ex.Message, "OK");
-            }*/
-        }
     }
 }

@@ -5,25 +5,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="AppHelp.Views.AboutPage"
-             xmlns:vm="clr-namespace:AppHelp.ViewModels"
              Title="CONFIGURAÇÕES">
 
     <ScrollView>
-        <StackLayout Padding="10,20,10,10">
+        <StackLayout Padding="10,10,10,10">
             <StackLayout Padding="0,0,0,20">
                 <Label Text="Telefone para envio do pedido de ajuda" FontSize="Medium" FontAttributes="Bold"></Label>
-                <Entry TextColor="Red" FontAttributes="Bold" Text="16996005035" FontSize="Medium" x:Name="txtNumber" Placeholder="DDD + Telefone" Keyboard="Telephone"></Entry>
+                <Entry TextColor="Gray" Text="16996005035" FontSize="Medium" x:Name="txtNumber1" Placeholder="DDD + Telefone" Keyboard="Telephone"></Entry>
             </StackLayout>
             <StackLayout Padding="0,0,0,20">
                 <Label FontSize="Medium" FontAttributes="Bold" Text="Mensagem do pedido de ajuda"></Label>
-                <Entry TextColor="Red" FontAttributes="Bold" Text="SOCORRO!!!" FontSize="Medium" x:Name="txtMessage" Placeholder="Mensagem" Keyboard="Text"></Entry>
+                <Entry TextColor="Gray" Text="SOCORRO!!!" FontSize="Medium" x:Name="txtMessage1" Placeholder="Mensagem" Keyboard="Text"></Entry>
             </StackLayout>
             <StackLayout Padding="0,0,0,20">
                 <Label FontSize="Medium" FontAttributes="Bold" Text="Email para envio do pedido de ajuda"></Label>
-                <Entry TextColor="Red" FontAttributes="Bold" Text="daniel.sergent@gmail.com" FontSize="Medium" x:Name="txtEmail" Placeholder="Email" Keyboard="Email"></Entry>
+                <Entry TextColor="Gray" Text="daniel.sergent@gmail.com" FontSize="Medium" x:Name="txtEmail1" Placeholder="Email" Keyboard="Email"></Entry>
             </StackLayout>
-            <Button x:Name="btnSms" Text="Salvar" TextColor="White" FontSize="Medium" FontAttributes="Bold" BackgroundColor="Red" CornerRadius="25" Clicked="btnSave_Clicked"/>
-
+            <Button x:Name="btnSms" Text="Salvar" TextColor="White" FontSize="Medium" FontAttributes="Bold" BackgroundColor="Red" Clicked="Save_Clicked" BorderColor="LightGray" BorderWidth="3"/>
+            <StackLayout Padding="0,20,0,20">
+                <Label FontSize="Medium" FontAttributes="Bold" TextColor="Black" Text="Modelo da Mensagem"></Label>
+                <Label FontSize="Medium" TextColor="Black" Text="Mensagem do pedido de ajuda + Local: https://www.google.com/maps/?q=-99.9999999,-99.99999999, Altitude: 999, Data: 01/01/2020 10:20:00"></Label>
+            </StackLayout>
         </StackLayout>
     </ScrollView>
    

@@ -29,6 +29,11 @@ namespace AppHelp.Views
         public ItemsPage()
         {
             InitializeComponent();
+            if (!Application.Current.Properties.ContainsKey("TxtNumberTel"))
+            {
+                DisplayAlert("ATENÇÃO", "Cadastre um número de telefone válido para solicitar ajuda.", "OK");
+                Navigation.PushAsync(new AboutPage(), true);
+            }
             //BindingContext = viewModel = new ItemsViewModel();
         }
 
@@ -56,22 +61,23 @@ namespace AppHelp.Views
             catch (Exception ex)
             {
                 await DisplayAlert("Erro", "Houve um problema com a solicitação. Tente novamente.", "OK");
+                return;
                 //Something went wrong
             }
 
             if (Application.Current.Properties.ContainsKey("TxtNumberTel"))
             {
-                var txtNumber = Application.Current.Properties["TxtNumberTel"].ToString();
-                var txtMessage = "";
+                var txtNumberAux = Application.Current.Properties["TxtNumberTel"].ToString();
+                var txtMessageAux = "";
 
-                if (String.IsNullOrWhiteSpace(txtNumber))
+                if (String.IsNullOrWhiteSpace(txtNumberAux))
                 {
                     await DisplayAlert("Erro", "Não foi possível realizar a ligação. Número de Telefone inválido.", "OK");
                     return;
                 }
 
                 if (Application.Current.Properties.ContainsKey("TxtMessage"))
-                    txtMessage = Application.Current.Properties["TxtMessage"].ToString();
+                    txtMessageAux = Application.Current.Properties["TxtMessage"].ToString();
                 
                 try
                 {
@@ -110,7 +116,7 @@ namespace AppHelp.Views
                     try
                     {
                         //smsMessenger.SendSmsInBackground(Number.Text, Message.Text);
-                        smsMessenger.SendSmsInBackground(txtNumber, txtMessage + locationTxt);
+                        smsMessenger.SendSmsInBackground(txtNumberAux, txtMessageAux + locationTxt);
                         //await DisplayAlert("Sucesso", "Mensagem enviada.", "OK");
                     }
                     catch (Exception ex)
@@ -156,20 +162,21 @@ namespace AppHelp.Views
                 //Something went wrong
             }
             var phoneDialer = CrossMessaging.Current.PhoneDialer;
-            var txtNumber = Application.Current.Properties["TxtNumberTel"].ToString();
+            var txtNumberAux = "";
+            if (Application.Current.Properties.ContainsKey("TxtNumberTel"))
+                txtNumberAux = Application.Current.Properties["TxtNumberTel"].ToString();
             
-            if (String.IsNullOrWhiteSpace(txtNumber))
+            if (String.IsNullOrWhiteSpace(txtNumberAux))
             {
                 await DisplayAlert("Erro", "Não foi possível realizar a ligação. Número de Telefone inválido.", "OK");
                 return;
             }
 
-
-            if (phoneDialer.CanMakePhoneCall && !String.IsNullOrWhiteSpace(txtNumber))
+            if (phoneDialer.CanMakePhoneCall && !String.IsNullOrWhiteSpace(txtNumberAux))
             {
                 try
                 {
-                   phoneDialer.MakePhoneCall(txtNumber);
+                   phoneDialer.MakePhoneCall(txtNumberAux);
                 }
                 catch (Exception ex)
                 {
@@ -185,17 +192,17 @@ namespace AppHelp.Views
 
         async void Wathsapp(object sender, EventArgs e)
         {
-            var txtNumber = Application.Current.Properties["TxtNumberTel"].ToString();
-            var txtMessage = "";
+            var txtNumberAux = Application.Current.Properties["TxtNumberTel"].ToString();
+            var txtMessageAux = "";
 
-            if (String.IsNullOrWhiteSpace(txtNumber))
+            if (String.IsNullOrWhiteSpace(txtNumberAux))
             {
                 await DisplayAlert("Erro", "Não foi possível enviar a mensagem. Número de Telefone inválido.", "OK");
                 return;
             }
         
             if (Application.Current.Properties.ContainsKey("TxtMessage"))
-                txtMessage = Application.Current.Properties["TxtMessage"].ToString();
+                txtMessageAux = Application.Current.Properties["TxtMessage"].ToString();
 
             try
             {
@@ -227,12 +234,12 @@ namespace AppHelp.Views
                 await DisplayAlert("Failed", "Não foi possível acessar a localização do dispositivo.", "OK");
             }
 
-            txtMessage = txtMessage + locationTxt;
-            var txtNumberFmt = "+55" + txtNumber;
+            txtMessageAux = txtMessageAux + locationTxt;
+            var txtNumberFmt = "+55" + txtNumberAux;
             
             try
             {
-                Device.OpenUri(new Uri(String.Format("https://wa.me/{0}?text={1}", txtNumberFmt, txtMessage)));
+                Device.OpenUri(new Uri(String.Format("https://wa.me/{0}?text={1}", txtNumberFmt, txtMessageAux)));
             }                
             catch (Exception ex)
             {
@@ -242,7 +249,7 @@ namespace AppHelp.Views
 
         async void SendEmail(object sender, EventArgs e)
         {
-            var txtMessage = "";
+            var txtMessageAux = "";
 
             if (!Application.Current.Properties.ContainsKey("TxtEmail"))
             {
@@ -251,7 +258,7 @@ namespace AppHelp.Views
             }
 
             if (Application.Current.Properties.ContainsKey("TxtMessage"))
-                txtMessage = Application.Current.Properties["TxtMessage"].ToString();
+                txtMessageAux = Application.Current.Properties["TxtMessage"].ToString();
 
             try
             {
@@ -291,7 +298,7 @@ namespace AppHelp.Views
 
                 var message = new EmailMessage
                 {
-                    Subject = txtMessage,
+                    Subject = txtMessageAux,
                     Body = locationTxt,
                     To = txtEmail,
                     //Cc = ccRecipients,
@@ -309,7 +316,7 @@ namespace AppHelp.Views
                 await DisplayAlert("Failed", "Não foi possível enviar a mensagem por email.", "OK");
                 // Some other exception occurred
             }
-            await DisplayAlert("Sucess", "Mensagem de ajuda enviada para o email cadastrado.", "OK");
+            //await DisplayAlert("Sucess", "Mensagem de ajuda enviada para o email cadastrado.", "OK");
 
         }
 

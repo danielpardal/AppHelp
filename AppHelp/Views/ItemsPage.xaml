@@ -5,23 +5,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="AppHelp.Views.ItemsPage"
-             Title="HELP ME">
+             Title="HELP">
+    <ScrollView>
+        <StackLayout Padding="10,100,10,20">
+            <Label x:Name="label"
+                   Text="Clique no botão para pedir ajuda"
+                   FontSize="Large"
+                   VerticalOptions="Start"
+                   HorizontalOptions="Center" />
 
-    <StackLayout Padding="0,100,0,10">
-        <Label x:Name="label"
-               Text="Clique no botão para pedir ajuda"
-               FontSize="Large"
-               VerticalOptions="Start"
-               HorizontalOptions="Center" />
+            <Button Text="*HELP SMS!" FontSize="Large" FontAttributes="Bold"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="Center" CornerRadius="100" BorderColor="LightGray" BorderWidth="3"
+                    Clicked="SendSms_Clicked" WidthRequest="200" HeightRequest="200" BackgroundColor="Red" TextColor="White"/>
 
-        <Button Text="HELP SMS!" FontSize="Large" FontAttributes="Bold"
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="Center" CornerRadius="100" BorderColor="LightGray" BorderWidth="1"
-                Clicked="SendSms_Clicked" WidthRequest="200" HeightRequest="200" BackgroundColor="Red" TextColor="LightGray"/>
-
-        <Button Text="HELP LIGAÇÃO!"  FontAttributes="Bold" Clicked="Call" BackgroundColor="Red" TextColor="White"/>
-        <Button Text="HELP WHATSAPP!" FontAttributes="Bold" Clicked="Wathsapp" BackgroundColor="Red" TextColor="White"/>
-        <Button Text="HELP EMAIL!" FontAttributes="Bold" Clicked="SendEmail" BackgroundColor="Red" TextColor="White"/>
-    </StackLayout>
-    
+            <Button Text="HELP LIGAÇÃO!"  FontAttributes="Bold" Clicked="Call" BackgroundColor="Red" TextColor="White" BorderColor="LightGray" BorderWidth="3"/>
+            <Button Text="HELP WHATSAPP!" FontAttributes="Bold" Clicked="Wathsapp" BackgroundColor="Red" TextColor="White" BorderColor="LightGray" BorderWidth="3"/>
+            <Button Text="HELP EMAIL!" FontAttributes="Bold" Clicked="SendEmail" BackgroundColor="Red" TextColor="White" BorderColor="LightGray" BorderWidth="3"/>
+            <Label Text="*ATENÇÃO: O envio de SMS pode gerar custos com a sua operadora. 1 SMS por clique em 'HELP SMS!'"></Label>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
