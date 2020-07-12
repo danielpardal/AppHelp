@@ -18,11 +18,22 @@ namespace AppHelp.Views
         {
             //LocationCache();
             InitializeComponent();
+
+            if (Application.Current.Properties.ContainsKey("bMsgOpen"))
+                this.bMsgOpen.IsToggled = Convert.ToBoolean(Application.Current.Properties["bMsgOpen"]);
+
             if (Application.Current.Properties.ContainsKey("TxtNumberTel"))
-                this.txtNumber1.Text = Application.Current.Properties["TxtNumberTel"].ToString();
+                this.txtNumberTel1.Text = Application.Current.Properties["TxtNumberTel"].ToString();
 
             if (Application.Current.Properties.ContainsKey("TxtMessage"))
                 this.txtMessage1.Text = Application.Current.Properties["TxtMessage"].ToString();
+
+            if (Application.Current.Properties.ContainsKey("TxtEmail"))
+                this.txtEmail1.Text = Application.Current.Properties["TxtEmail"].ToString();
+
+            if (Application.Current.Properties.ContainsKey("TxtName"))
+                this.txtName1.Text = Application.Current.Properties["TxtName"].ToString();
+
         }
 
         protected override void OnAppearing()
@@ -73,17 +84,51 @@ namespace AppHelp.Views
         }
         async void Save_Clicked(object sender, System.EventArgs e)
         {
-            if (!string.IsNullOrEmpty(this.txtNumber1.Text))
+            if (!string.IsNullOrEmpty(this.txtNumberTel1.Text))
             {
                 if (Application.Current.Properties.ContainsKey("TxtNumberTel"))
-                    Application.Current.Properties["TxtNumberTel"] = this.txtNumber1.Text;
+                    Application.Current.Properties["TxtNumberTel"] = this.txtNumberTel1.Text;
                 else
-                    Application.Current.Properties.Add("TxtNumberTel", this.txtNumber1.Text);
+                    Application.Current.Properties.Add("TxtNumberTel", this.txtNumberTel1.Text);
             }
             else
             {
                 await DisplayAlert("Failed", "Número de Telefone inválido. Informação obrigatória. Não será possível solicitar ajuda.", "OK");
                 return;
+            }
+
+            if (Application.Current.Properties.ContainsKey("BMailAuto"))
+                Application.Current.Properties["BMailAuto"] = this.bMailAuto.IsToggled;
+            else
+                Application.Current.Properties.Add("BMailAuto", this.bMailAuto.IsToggled);
+
+            if (!string.IsNullOrEmpty(txtUserEmailSmtp.Text))
+            {
+                if (Application.Current.Properties.ContainsKey("TxtUserEmailSmtp"))
+                    Application.Current.Properties["TxtUserEmailSmtp"] = this.txtUserEmailSmtp.Text;
+                else
+                    Application.Current.Properties.Add("TxtUserEmailSmtp", this.txtUserEmailSmtp.Text);
+            }
+
+            if (!string.IsNullOrEmpty(txtPassEmailSmtp.Text))
+            {
+                if (Application.Current.Properties.ContainsKey("TxtPassEmailSmtp1"))
+                    Application.Current.Properties["TxtPassEmailSmtp1"] = this.txtPassEmailSmtp.Text;
+                else
+                    Application.Current.Properties.Add("TxtPassEmailSmtp1", this.txtPassEmailSmtp.Text);
+            }
+
+            if (Application.Current.Properties.ContainsKey("bMsgOpen"))
+                Application.Current.Properties["bMsgOpen"] = this.bMsgOpen.IsToggled;
+            else
+                Application.Current.Properties.Add("bMsgOpen", this.bMsgOpen.IsToggled);
+
+            if (!string.IsNullOrEmpty(txtName1.Text))
+            {
+                if (Application.Current.Properties.ContainsKey("TxtName"))
+                    Application.Current.Properties["TxtName"] = this.txtName1.Text;
+                else
+                    Application.Current.Properties.Add("TxtName", this.txtName1.Text);
             }
 
             if (!string.IsNullOrEmpty(txtMessage1.Text))
