@@ -374,7 +374,7 @@ namespace AppHelp.Views
 
                 if (Application.Current.Properties.ContainsKey("TxtUserEmailSmtp"))
                 {
-                    txtUserEmailSmtpAux = Application.Current.Properties["TxtUserEmailSmtpAux"].ToString();
+                    txtUserEmailSmtpAux = Application.Current.Properties["TxtUserEmailSmtp"].ToString();
                     if (String.IsNullOrWhiteSpace(txtUserEmailSmtpAux))
                     {
                         await DisplayAlert("Erro", "Não há email gmail SMTP cadastrado.", "OK");
@@ -387,9 +387,9 @@ namespace AppHelp.Views
                     return;
                 }
 
-                if (Application.Current.Properties.ContainsKey("TxtPassEmailSmtpAux"))
+                if (Application.Current.Properties.ContainsKey("TxtPassEmailSmtp"))
                 {
-                    txtPassEmailSmtpAux = Application.Current.Properties["TxtPassEmailSmtpAux"].ToString();
+                    txtPassEmailSmtpAux = Application.Current.Properties["TxtPassEmailSmtp"].ToString();
                     if (String.IsNullOrWhiteSpace(txtPassEmailSmtpAux))
                     {
                         await DisplayAlert("Erro", "Não há senha de email gmail SMTP cadastrado.", "OK");

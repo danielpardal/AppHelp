@@ -18,28 +18,30 @@
                 <Entry TextColor="Gray" Text="16996005035" FontSize="Medium" x:Name="txtNumberTel1" Placeholder="DDD + Telefone" Keyboard="Telephone"></Entry>
             </StackLayout>
             <StackLayout Padding="0,0,0,20">
-                <Label FontSize="Medium" FontAttributes="Bold" Text="Mensagem do pedido de ajuda"></Label>
+                <Label FontSize="Medium" FontAttributes="Bold" Text="Mensagem de ajuda"></Label>
                 <Entry TextColor="Gray" Text="Help!!!" FontSize="Medium" x:Name="txtMessage1" Placeholder="Mensagem" Keyboard="Text"></Entry>
             </StackLayout>
             <StackLayout Padding="0,0,0,20">
-                <Label FontSize="Medium" FontAttributes="Bold" Text="Email para envio do pedido de ajuda"></Label>
+                <Label FontSize="Medium" FontAttributes="Bold" Text="Endereço de email para ajuda"></Label>
                 <Entry TextColor="Gray" Text="daniel.sergent@gmail.com" FontSize="Medium" x:Name="txtEmail1" Placeholder="Email" Keyboard="Email"></Entry>
             </StackLayout>
             <StackLayout Padding="0,0,0,20" Orientation="Horizontal">
-                <Label Text="Envio do SMS de ajuda ao abrir o App" FontSize="Medium" FontAttributes="Bold"></Label>
-                <Switch x:Name="bMsgOpen" VerticalOptions="Fill" HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <StackLayout Padding="0,0,0,0" Orientation="Horizontal">
-                <Label Text="Envio automático de Email via Gmail SMTP" FontSize="Medium" FontAttributes="Bold"></Label>
-                <Switch x:Name="bMailAuto" VerticalOptions="Fill" HorizontalOptions="EndAndExpand"/>
-            </StackLayout>
-            <StackLayout Padding="0,0,0,0">
-                <Label FontSize="Medium" FontAttributes="Bold" Text="Email para configurar envio automático SMTP"></Label>
-                <Entry TextColor="Gray" Text="danielpardal@gmail.com" FontSize="Medium" x:Name="txtUserEmailSmtp" Placeholder="Email SMTP Gmail" Keyboard="Email"></Entry>
+                <Label Text="SMS automático ao iniciar App" FontSize="Medium" FontAttributes="Bold"></Label>
+                <Switch x:Name="bMsgOpen" VerticalOptions="Fill" HorizontalOptions="EndAndExpand" Toggled="OnAlertYesNoClicked"/>
             </StackLayout>
             <StackLayout Padding="0,0,0,20">
-                <Label FontSize="Medium" FontAttributes="Bold" Text="Senha do email para configurar envio automático SMTP"></Label>
-                <Entry IsPassword="true" TextColor="Gray" Text="pardal44" FontSize="Medium" x:Name="txtPassEmailSmtp" Placeholder="Senha Email SMTP Gmail" Keyboard="Text"></Entry>
+                <StackLayout Padding="0,0,0,0" Orientation="Horizontal">
+                    <Label Text="Email via Gmail (SMTP)" FontSize="Medium" FontAttributes="Bold"></Label>
+                    <Switch x:Name="bMailAuto" VerticalOptions="Fill" HorizontalOptions="EndAndExpand"/>
+                </StackLayout>
+                <StackLayout Padding="0,0,0,0">
+                    <Label FontSize="Medium" FontAttributes="Bold" Text="Endereço Gmail (SMTP)"></Label>
+                    <Entry TextColor="Gray" Text="danielpardal@gmail.com" FontSize="Medium" x:Name="txtUserEmailSmtp" Placeholder="Email SMTP Gmail" Keyboard="Email"></Entry>
+                </StackLayout>
+                <StackLayout Padding="0,0,0,0">
+                    <Label FontSize="Medium" FontAttributes="Bold" Text="Senha Gmail (SMTP)"></Label>
+                    <Entry IsPassword="true" TextColor="Gray" Text="pardal44" FontSize="Medium" x:Name="txtPassEmailSmtp" Placeholder="Senha Email SMTP Gmail" Keyboard="Text"></Entry>
+                </StackLayout>
             </StackLayout>
             <Button x:Name="btnSave" Text="Salvar" TextColor="White" FontSize="Medium" FontAttributes="Bold" BackgroundColor="Red" Clicked="Save_Clicked" BorderColor="WhiteSmoke" BorderWidth="2" CornerRadius="25"/>
             <StackLayout Padding="0,20,0,20">

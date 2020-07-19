@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Plugin.Messaging;
 using Android;
+using Android.Content;
 
 namespace AppHelp.Droid
 {
@@ -37,6 +38,11 @@ namespace AppHelp.Droid
                 RequestPermissions();
             }
 
+            /*var whatsaap = Android.Net.Uri.Parse("smsto:" + 5516996005035);
+            Intent i = new Intent(Intent.ActionSendto, whatsaap);
+            i.SetPackage("com.whatsapp");
+            StartActivity(Intent.CreateChooser(i, "bla bla bla"));*/
+            
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);

@@ -112,10 +112,10 @@ namespace AppHelp.Views
 
             if (!string.IsNullOrEmpty(txtPassEmailSmtp.Text))
             {
-                if (Application.Current.Properties.ContainsKey("TxtPassEmailSmtp1"))
-                    Application.Current.Properties["TxtPassEmailSmtp1"] = this.txtPassEmailSmtp.Text;
+                if (Application.Current.Properties.ContainsKey("TxtPassEmailSmtp"))
+                    Application.Current.Properties["TxtPassEmailSmtp"] = this.txtPassEmailSmtp.Text;
                 else
-                    Application.Current.Properties.Add("TxtPassEmailSmtp1", this.txtPassEmailSmtp.Text);
+                    Application.Current.Properties.Add("TxtPassEmailSmtp", this.txtPassEmailSmtp.Text);
             }
 
             if (Application.Current.Properties.ContainsKey("bMsgOpen"))
@@ -148,6 +148,35 @@ namespace AppHelp.Views
             }
 
             await DisplayAlert("Sucesso", "Configuração salva.", "OK");
+
+        }
+
+        async void OnAlertYesNoClicked(object sender, EventArgs e)
+        {
+            var s = sender as Xamarin.Forms.Switch;
+            if (s.IsToggled)
+            {
+                bool answer = await DisplayAlert("Pergunta?", "Confirma o envio automático de SMS sempre que o aplicativo for iniciado?", "Sim", "Não");
+                if (answer)
+                {
+                    if (Application.Current.Properties.ContainsKey("bMsgOpen"))
+                        Application.Current.Properties["bMsgOpen"] = s.IsToggled;
+                    else
+                        Application.Current.Properties.Add("bMsgOpen", s.IsToggled);
+                }
+                else
+                {
+                    this.bMsgOpen.IsToggled = false;
+                }
+            }
+            else
+            {
+                await DisplayAlert("Sucesso", "Envio automático de SMS desligado.", "OK");
+                if (Application.Current.Properties.ContainsKey("bMsgOpen"))
+                    Application.Current.Properties["bMsgOpen"] = s.IsToggled;
+                else
+                    Application.Current.Properties.Add("bMsgOpen", s.IsToggled);
+            }
 
         }
 
